@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "pdf-merge": {
+      "commandName": "Project"
+    }
+  }
+}
