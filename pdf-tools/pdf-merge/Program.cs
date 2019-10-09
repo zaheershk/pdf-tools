@@ -14,6 +14,7 @@ namespace zs.tools.pdf
             {
                 Console.WriteLine("Please enter the command-line arguments.");
                 Console.WriteLine(@"Usage: dotnet pdf-merge.dll C:\result.pdf C:\file1.pdf C:\file2.pdf");
+                return;
             }
 
             MergePdf(args[0], args.Skip(1).ToArray()); //todo - cleanup/validate
