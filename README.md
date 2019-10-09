@@ -1,2 +1,2 @@
 # pdf-tools
-Utility library for PDF functionalities using iTextSharp
+Utility library for PDF functionalities using iText7
