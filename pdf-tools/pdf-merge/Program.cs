@@ -2,6 +2,7 @@
 using iText.Kernel.Utils;
 using System;
 using System.Linq;
+using System.Text;
 
 namespace zs.tools.pdf
 {
@@ -17,7 +18,7 @@ namespace zs.tools.pdf
                 return;
             }
 
-            MergePdf(args[0], args.Skip(1).ToArray()); //todo - cleanup/validate
+            MergePdf(args[0], args.Skip(1).ToArray()); //TODO - cleanup/validate
         }
 
         private static void MergePdf(string destFilePath, params string[] srcFilesPath)
@@ -31,6 +32,29 @@ namespace zs.tools.pdf
                 PdfDocument srcPdf = new PdfDocument(new PdfReader(filePath));
                 merger.Merge(srcPdf, 1, srcPdf.GetNumberOfPages());
                 srcPdf.Close();
+            }
+
+            destPdf.Close();
+        }
+
+        private static void MergePdfWithPassword(string destFilePath, params string[] srcFilesPath)
+        {
+            //Initialize PDF document with output intent
+            var destPdf = new PdfDocument(new PdfWriter(destFilePath));
+            var merger = new PdfMerger(destPdf);
+
+            foreach (var filePath in srcFilesPath)
+            {
+                using (var reader = new PdfReader(filePath,
+                    new ReaderProperties().SetPassword(Encoding.ASCII.GetBytes("USER_OR_OWNER_PASSWORD"))))
+                {
+                    reader.SetUnethicalReading(true);
+                    using (var srcPdf = new PdfDocument(reader))
+                    {
+                        merger.Merge(srcPdf, 1, srcPdf.GetNumberOfPages());
+                        srcPdf.Close();
+                    }
+                }
             }
 
             destPdf.Close();
