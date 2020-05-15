@@ -1,2 +1,2 @@
-# pdf-tools
-Utility library for PDF functionalities using iText7
+# tools-and-utilities
+Utility library for various stuff e.g. Powershell scripts, PDF utilities etc.
